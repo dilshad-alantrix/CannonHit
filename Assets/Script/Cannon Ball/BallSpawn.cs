@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class BallSpawn : MonoBehaviour
 {
-    [SerializeField] private BallPool ballPool;
-    [SerializeField] private float SpawnDistance = 1.5f;
-    [SerializeField] private float ShootForce = 10f;
+    [SerializeField] private Ball ballPrefab;
+    [SerializeField] private float spawnDistance = 1.5f;
+    [SerializeField] private float shootForce = 10f;
+    private Pool<Ball> ballPool = new Pool<Ball>();
     void Start()
     {
-        
+        ballPool.Obj = ballPrefab;
     }
 
 
@@ -25,12 +26,15 @@ public class BallSpawn : MonoBehaviour
     private void ShootBall()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 spowPoint = Camera.main.transform.position + Camera.main.transform.forward * SpawnDistance;
+        Vector3 spowPoint = Camera.main.transform.position + Camera.main.transform.forward * spawnDistance;
         
-        GameObject ball = ballPool.GetObj();
+        Ball ball = ballPool.GetObj();
         ball.transform.position = spowPoint;
+        ball.Init((b) => ballPool.SetObj(b));
 
         Rigidbody rb = ball.GetComponent<Rigidbody>();
-        rb.AddForce(ray.direction * ShootForce,ForceMode.VelocityChange);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(ray.direction * shootForce,ForceMode.VelocityChange);
     }
 }

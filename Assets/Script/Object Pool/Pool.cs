@@ -9,9 +9,11 @@ public class Pool<T> where T: MonoBehaviour
 
     public T GetObj()
     {
-        if (poolList.Count != 0)
+        if (poolList.Count > 0)
         {
-            return poolList.Dequeue();
+            T item = poolList.Dequeue();
+            item.gameObject.SetActive(true);
+            return item;
         }
 
         T newObj = GameObject.Instantiate(Obj);
@@ -20,6 +22,7 @@ public class Pool<T> where T: MonoBehaviour
 
     public void SetObj(T Obj)
     {
+        Obj.gameObject.SetActive(false);
         poolList.Enqueue(Obj);
     }
 }

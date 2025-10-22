@@ -18,4 +18,9 @@ public class Move : MonoBehaviour
         Vector3 move = new Vector3(0, 0, 1);
         transform.position += move * MoveSpeed * Time.deltaTime;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+         Debug.Log("Collide");
+    }
 }

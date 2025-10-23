@@ -6,31 +6,55 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private float radius = 5f;
+    [SerializeField] private float explosionForce = 10f;
+    [SerializeField] ParticleSystem explosinEffect;
     private Action<Ball> returnToPool;
-
-    public void Init(Action<Ball> onReturn)
+    private Action<Ball> onBarralHit;
+    
+    public void Init(Action<Ball> onReturn,Action<Ball> onBarralHit)
     {
         returnToPool = onReturn;
+        this.onBarralHit = onBarralHit;
         
     }
 
     void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Barrel"))
-        {
-            Debug.Log("add ball");
-            //Destroy(collision.gameObject);
-        }
-        
-        StartCoroutine(Desable());
+    {  
+
+        explosion();
     }
 
-    IEnumerator Desable()
+
+    private void explosion()
     {
-        yield return new WaitForSecondsRealtime(2f);
+       
+        Instantiate(explosinEffect, transform.position, quaternion.identity);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+        foreach (var obj in colliders)
+        {
+            Breakble breakble = obj.GetComponent<Breakble>();
+            if (breakble != null)
+            {
+                breakble.Break();
+            }
+            
+            if(obj.CompareTag("Barrel"))
+            {
+                onBarralHit?.Invoke(this);
+            }
+
+            Rigidbody _rb = obj.GetComponent<Rigidbody>();
+            if (_rb != null)
+            {
+                _rb.AddExplosionForce(explosionForce, transform.position, radius);
+                Debug.Log("work");
+            }
+        }
 
         transform.rotation = Quaternion.identity;
         returnToPool?.Invoke(this);
     }
-    
+
 }

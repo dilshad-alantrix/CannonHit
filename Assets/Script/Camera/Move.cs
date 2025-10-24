@@ -19,8 +19,4 @@ public class Move : MonoBehaviour
         transform.position += move * MoveSpeed * Time.deltaTime;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-         Debug.Log("Collide");
-    }
 }

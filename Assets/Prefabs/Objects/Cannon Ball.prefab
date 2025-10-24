@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faedf58239a7244c5b006aaf37622a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
-  explosionForce: 500
+  radius: 2
+  explosionForce: 1000
   explosinEffect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
     type: 3}
 --- !u!4 &593168806958236129 stripped

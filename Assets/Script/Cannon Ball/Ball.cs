@@ -21,8 +21,9 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {  
-
+       
         explosion();
+
     }
 
 
@@ -30,7 +31,7 @@ public class Ball : MonoBehaviour
     {
        
         Instantiate(explosinEffect, transform.position, quaternion.identity);
-
+      
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach (var obj in colliders)
         {
@@ -39,8 +40,8 @@ public class Ball : MonoBehaviour
             {
                 breakble.Break();
             }
-            
-            if(obj.CompareTag("Barrel"))
+
+            if (obj.CompareTag("Barrel"))
             {
                 onBarralHit?.Invoke(this);
             }
@@ -48,10 +49,16 @@ public class Ball : MonoBehaviour
             Rigidbody _rb = obj.GetComponent<Rigidbody>();
             if (_rb != null)
             {
-                _rb.AddExplosionForce(explosionForce, transform.position, radius);
-                Debug.Log("work");
+               if(!_rb.gameObject.CompareTag("MainCamera"))
+                {
+                    _rb.AddExplosionForce(explosionForce, transform.position, radius);
+                    Debug.Log("work");
+                }
+                
+                
             }
         }
+        
 
         transform.rotation = Quaternion.identity;
         returnToPool?.Invoke(this);

@@ -29,8 +29,9 @@ public class Ball : MonoBehaviour
 
     private void explosion()
     {
-       
+
         Instantiate(explosinEffect, transform.position, quaternion.identity);
+        AudioManager.instance.PlaySfx(AudioManager.instance.explotionClip);
       
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach (var obj in colliders)
@@ -39,6 +40,7 @@ public class Ball : MonoBehaviour
             if (breakble != null)
             {
                 breakble.Break();
+                
             }
 
             if (obj.CompareTag("Barrel"))
@@ -49,7 +51,7 @@ public class Ball : MonoBehaviour
             Rigidbody _rb = obj.GetComponent<Rigidbody>();
             if (_rb != null)
             {
-               if(!_rb.gameObject.CompareTag("MainCamera"))
+               if(!_rb.gameObject.CompareTag("GameCamera"))
                 {
                     _rb.AddExplosionForce(explosionForce, transform.position, radius);
                     Debug.Log("work");

@@ -34,6 +34,7 @@ public class BallSpawn : MonoBehaviour
 
     private void ShootBall()
     {
+        AudioManager.instance.PlaySfx(AudioManager.instance.throwClip);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 spowPoint = Camera.main.transform.position + Camera.main.transform.forward * spawnDistance;
 

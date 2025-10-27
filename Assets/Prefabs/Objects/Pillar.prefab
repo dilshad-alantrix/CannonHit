@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orgObject: {fileID: 5171594286575866483}
   brokObject: {fileID: 3375635070830774565}
+  breakType: 1
 --- !u!65 &917302204757057875
 BoxCollider:
   m_ObjectHideFlags: 0

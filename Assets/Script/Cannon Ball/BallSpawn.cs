@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BallSpawn : MonoBehaviour
+public class BallSpawn : MonoBehaviour, Iobserver
 {
     [SerializeField] private Ball ballPrefab;
     [SerializeField] private float spawnDistance = 1.5f;
@@ -12,6 +12,7 @@ public class BallSpawn : MonoBehaviour
     [SerializeField] private int startingAmmo = 10;
     public TMP_Text text;
     private int currentAmmo;
+    private bool isplaying;
 
     private Pool<Ball> ballPool = new Pool<Ball>();
     void Start()
@@ -19,11 +20,29 @@ public class BallSpawn : MonoBehaviour
         ballPool.Obj = ballPrefab;
         currentAmmo = startingAmmo;
     }
-
+    void OnEnable()
+    {
+        GameManager.Instance.AddObserver(this);
+    }
+    void OnDestroy()
+    {
+        GameManager.Instance.RemoveObserver(this);
+    }
+    public void OnNotify(GameState state)
+    {
+        if (state == GameState.Playing)
+        {
+            isplaying = true;
+        }
+        else
+        {
+            isplaying = false;
+        }
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
+        if (Input.GetMouseButtonDown(0) && currentAmmo > 0 && isplaying)
         {
             currentAmmo--;
             ShootBall();

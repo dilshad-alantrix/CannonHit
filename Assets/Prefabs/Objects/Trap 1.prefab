@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1468180325106251704}
   m_Layer: 0
   m_Name: Trap 1
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orgObject: {fileID: 1774822786832797334}
   brokObject: {fileID: 1774822787274045621}
+  breakType: 0
 --- !u!1001 &1468180324880074212
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 375823414392516279}
   m_Layer: 0
   m_Name: wood Box
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -510,6 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orgObject: {fileID: 5150631162078401285}
   brokObject: {fileID: 7589679426459573075}
+  breakType: 0
 --- !u!54 &4969953008480861390
 Rigidbody:
   m_ObjectHideFlags: 0
